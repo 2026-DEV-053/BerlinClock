@@ -1,0 +1,4 @@
+/build
+*.aab
+*.apk
+output-metadata.json
