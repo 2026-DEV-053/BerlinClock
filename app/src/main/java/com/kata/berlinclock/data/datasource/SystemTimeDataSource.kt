@@ -12,7 +12,8 @@ class SystemTimeDataSource {
         while (true) {
             val calendar = Calendar.getInstance()
             val time = TimeInput(
-                hours = calendar.get(Calendar.HOUR_OF_DAY)
+                hours = calendar.get(Calendar.HOUR_OF_DAY),
+                minutes = calendar.get(Calendar.MINUTE)
             )
             emit(time)
             delay((1000 - (System.currentTimeMillis() % 1000)).milliseconds)
