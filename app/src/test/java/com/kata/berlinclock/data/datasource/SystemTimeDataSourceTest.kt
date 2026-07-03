@@ -29,4 +29,15 @@ class SystemTimeDataSourceTest {
             cancelAndIgnoreRemainingEvents()
         }
     }
+
+    @Test
+    fun `getCurrentTime emits valid hours, minutes and seconds`() = runTest {
+        dataSource.getCurrentTime().test {
+            val time = awaitItem()
+
+            Assertions.assertTrue(time.hours in 0..23 && time.minutes in 0..59 && time.seconds in 0..59)
+
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
 }
