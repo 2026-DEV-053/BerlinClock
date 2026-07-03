@@ -3,10 +3,16 @@ package com.kata.berlinclock.data.datasource
 import app.cash.turbine.test
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class SystemTimeDataSourceTest {
-    private val dataSource = SystemTimeDataSource()
+    private lateinit var dataSource: SystemTimeDataSource
+
+    @BeforeEach
+    fun setUp() {
+        dataSource = SystemTimeDataSource()
+    }
 
     @Test
     fun `getCurrentTime emits valid hours`() = runTest {
