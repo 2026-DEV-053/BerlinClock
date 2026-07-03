@@ -7,7 +7,20 @@ import kotlinx.coroutines.flow.flow
 import java.util.Calendar
 import kotlin.time.Duration.Companion.milliseconds
 
+/**
+ * Data source that continuously emits the current system time.
+ *
+ * The returned [Flow] emits a new [TimeInput] approximately once every second.
+ */
 class SystemTimeDataSource {
+    /**
+     * Returns a cold [Flow] that emits the current system time indefinitely.
+     *
+     * Every emission contains the current hour, minute, and second from the
+     * system calendar.
+     *
+     * @return a [Flow] emitting the current system time once per second.
+     */
     fun getCurrentTime(): Flow<TimeInput> = flow {
         while (true) {
             val calendar = Calendar.getInstance()
