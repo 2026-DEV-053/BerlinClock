@@ -57,19 +57,9 @@ class ConvertTimeToBerlinClockUseCase @Inject constructor(
     }
 
     private fun getOneMinuteRow(minutes: Int): List<BerlinClockLamp> {
-        if(minutes == 4){
-            return listOf(
-                BerlinClockLamp.yellow(true),
-                BerlinClockLamp.yellow(true),
-                BerlinClockLamp.yellow(true),
-                BerlinClockLamp.yellow(true)
-            )
+        val onLamps = minutes % 5
+        return List(4) { index ->
+            BerlinClockLamp.yellow(index < onLamps)
         }
-        return listOf(
-            BerlinClockLamp.yellow(true),
-            BerlinClockLamp.off(),
-            BerlinClockLamp.off(),
-            BerlinClockLamp.off()
-        )
     }
 }
