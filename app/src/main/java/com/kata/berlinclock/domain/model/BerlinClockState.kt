@@ -1,5 +1,6 @@
 package com.kata.berlinclock.domain.model
 
 data class BerlinClockState(
-    val secondsLamp: BerlinClockLamp
+    val secondsLamp: BerlinClockLamp,
+    val fiveHourRow: List<BerlinClockLamp>
 )

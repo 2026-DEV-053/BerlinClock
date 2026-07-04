@@ -53,4 +53,26 @@ class ConvertTimeToBerlinClockUseCaseTest {
             awaitComplete()
         }
     }
+
+    @Test
+    fun `should light first five hour lamp when hour is 5`() = runTest {
+        every { repository.getCurrentTime() } returns flowOf(
+            TimeInput(5, 0, 0)
+        )
+
+        useCase.getCurrentClockState().test {
+
+            Assertions.assertEquals(
+                listOf(
+                    BerlinClockLamp.red(true),
+                    BerlinClockLamp.red(false),
+                    BerlinClockLamp.red(false),
+                    BerlinClockLamp.red(false)
+                ),
+                awaitItem().fiveHourRow
+            )
+
+            awaitComplete()
+        }
+    }
 }

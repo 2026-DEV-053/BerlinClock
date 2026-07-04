@@ -6,5 +6,6 @@ data class BerlinClockLamp(
 ){
     companion object {
         fun yellow(isOn: Boolean) = BerlinClockLamp(if (isOn) LampColor.YELLOW else LampColor.OFF, isOn)
+        fun red(isOn: Boolean) = BerlinClockLamp(if (isOn) LampColor.RED else LampColor.OFF, isOn)
     }
 }
