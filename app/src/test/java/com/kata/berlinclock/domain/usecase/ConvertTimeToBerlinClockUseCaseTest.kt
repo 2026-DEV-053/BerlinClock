@@ -233,4 +233,25 @@ class ConvertTimeToBerlinClockUseCaseTest {
             awaitComplete()
         }
     }
+
+    @Test
+    fun `should light all one minute lamps when minutes is 4`() = runTest {
+        every { repository.getCurrentTime() } returns flowOf(
+            TimeInput(0, 4, 0)
+        )
+
+        useCase.getCurrentClockState().test {
+            Assertions.assertEquals(
+                listOf(
+                    BerlinClockLamp.yellow(true),
+                    BerlinClockLamp.yellow(true),
+                    BerlinClockLamp.yellow(true),
+                    BerlinClockLamp.yellow(true)
+                ),
+                awaitItem().oneMinuteRow
+            )
+
+            awaitComplete()
+        }
+    }
 }
