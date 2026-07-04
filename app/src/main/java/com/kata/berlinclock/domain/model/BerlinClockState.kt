@@ -12,4 +12,19 @@ data class BerlinClockState(
     val oneHourRow: List<BerlinClockLamp>,
     val fiveMinuteRow: List<BerlinClockLamp>,
     val oneMinuteRow: List<BerlinClockLamp>
-)
+) {
+    companion object {
+
+        /**
+         * Creates an initial empty Berlin Clock state with the seconds lamp off
+         * and all lamp rows uninitialized.
+         */
+        fun init() = BerlinClockState(
+            secondsLamp = BerlinClockLamp.off(),
+            fiveHourRow = emptyList(),
+            oneHourRow = emptyList(),
+            fiveMinuteRow = emptyList(),
+            oneMinuteRow = emptyList()
+        )
+    }
+}
