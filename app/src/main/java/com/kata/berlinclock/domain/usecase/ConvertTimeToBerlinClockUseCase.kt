@@ -13,8 +13,12 @@ class ConvertTimeToBerlinClockUseCase @Inject constructor(
     fun getCurrentClockState(): Flow<BerlinClockState> {
         return repository.getCurrentTime().map { timeInput ->
             BerlinClockState(
-                secondsLamp = BerlinClockLamp.yellow(timeInput.seconds % 2 == 0)
+                secondsLamp = getSecondsLamp(timeInput.seconds)
             )
         }
+    }
+
+    private fun getSecondsLamp(seconds: Int): BerlinClockLamp {
+        return BerlinClockLamp.yellow(seconds % 2 == 0)
     }
 }
