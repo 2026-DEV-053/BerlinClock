@@ -4,5 +4,6 @@ data class BerlinClockState(
     val secondsLamp: BerlinClockLamp,
     val fiveHourRow: List<BerlinClockLamp>,
     val oneHourRow: List<BerlinClockLamp>,
-    val fiveMinuteRow: List<BerlinClockLamp>
+    val fiveMinuteRow: List<BerlinClockLamp>,
+    val oneMinuteRow: List<BerlinClockLamp>
 )

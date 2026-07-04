@@ -16,7 +16,8 @@ class ConvertTimeToBerlinClockUseCase @Inject constructor(
                 secondsLamp = getSecondsLamp(timeInput.seconds),
                 fiveHourRow = getFiveHourRow(timeInput.hours),
                 oneHourRow = getOneHourRow(timeInput.hours),
-                fiveMinuteRow = getFiveMinuteRow(timeInput.minutes)
+                fiveMinuteRow = getFiveMinuteRow(timeInput.minutes),
+                oneMinuteRow = getOneMinuteRow()
             )
         }
     }
@@ -53,5 +54,14 @@ class ConvertTimeToBerlinClockUseCase @Inject constructor(
                 else -> BerlinClockLamp.yellow(true)
             }
         }
+    }
+
+    private fun getOneMinuteRow(): List<BerlinClockLamp> {
+        return listOf(
+            BerlinClockLamp.yellow(true),
+            BerlinClockLamp.off(),
+            BerlinClockLamp.off(),
+            BerlinClockLamp.off()
+        )
     }
 }
