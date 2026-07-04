@@ -38,4 +38,19 @@ class ConvertTimeToBerlinClockUseCaseTest {
             awaitComplete()
         }
     }
+
+    @Test
+    fun `should turn seconds lamp off when current second is odd`() = runTest {
+        every { repository.getCurrentTime() } returns flowOf(
+            TimeInput(10, 20, 1)
+        )
+
+        useCase.getCurrentClockState().test {
+            Assertions.assertEquals(
+                BerlinClockLamp.yellow(false),
+                awaitItem().secondsLamp
+            )
+            awaitComplete()
+        }
+    }
 }
