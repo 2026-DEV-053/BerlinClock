@@ -41,49 +41,17 @@ class ConvertTimeToBerlinClockUseCase @Inject constructor(
         }
     }
 
-    private fun getFiveMinuteRow(minutes: Int): List<BerlinClockLamp>{
-        if(minutes == 15){
-            return listOf(
-                BerlinClockLamp.yellow(true),
-                BerlinClockLamp.yellow(true),
-                BerlinClockLamp.red(true),
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off()
-            )
+    private fun getFiveMinuteRow(minutes: Int): List<BerlinClockLamp> {
+        val onLamps = minutes / 5
+        return List(11) { index ->
+            val isOn = index < onLamps
+            val isQuarterPosition = (index + 1) % 3 == 0
+
+            when {
+                !isOn -> BerlinClockLamp.off()
+                isQuarterPosition -> BerlinClockLamp.red(true)
+                else -> BerlinClockLamp.yellow(true)
+            }
         }
-        if(minutes == 0){
-            return listOf(
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off(),
-                BerlinClockLamp.off()
-            )
-        }
-        return listOf(
-            BerlinClockLamp.yellow(true),
-            BerlinClockLamp.off(),
-            BerlinClockLamp.off(),
-            BerlinClockLamp.off(),
-            BerlinClockLamp.off(),
-            BerlinClockLamp.off(),
-            BerlinClockLamp.off(),
-            BerlinClockLamp.off(),
-            BerlinClockLamp.off(),
-            BerlinClockLamp.off(),
-            BerlinClockLamp.off()
-        )
     }
 }
