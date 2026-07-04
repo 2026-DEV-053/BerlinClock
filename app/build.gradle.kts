@@ -42,6 +42,18 @@ android {
             it.useJUnitPlatform()
         }
     }
+    packaging {
+        resources {
+            excludes += "/META-INF/LICENSE.md"
+            excludes.add("/META-INF/LICENSE-notice.md")
+        }
+    }
+    configurations.all {
+        resolutionStrategy {
+            force("androidx.test.espresso:espresso-core:3.7.0")
+            force ("androidx.test.ext:junit:1.3.0")
+        }
+    }
 }
 
 dependencies {
@@ -62,6 +74,8 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.turbine)
     testImplementation(libs.mockk)
+    androidTestImplementation(libs.mockk.android)
+    androidTestImplementation(libs.junit.jupiter.android)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)
