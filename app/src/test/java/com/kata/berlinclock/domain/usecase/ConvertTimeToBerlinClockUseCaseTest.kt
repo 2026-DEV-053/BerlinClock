@@ -196,4 +196,20 @@ class ConvertTimeToBerlinClockUseCaseTest {
             awaitComplete()
         }
     }
+
+    @Test
+    fun `should turn off all five minute lamps when minutes is zero`() = runTest {
+        every { repository.getCurrentTime() } returns flowOf(
+            TimeInput(0, 0, 0)
+        )
+
+        useCase.getCurrentClockState().test {
+
+            Assertions.assertTrue(
+                awaitItem().fiveMinuteRow.all { !it.isOn }
+            )
+
+            awaitComplete()
+        }
+    }
 }

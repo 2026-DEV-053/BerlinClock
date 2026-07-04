@@ -57,6 +57,21 @@ class ConvertTimeToBerlinClockUseCase @Inject constructor(
                 BerlinClockLamp.off()
             )
         }
+        if(minutes == 0){
+            return listOf(
+                BerlinClockLamp.off(),
+                BerlinClockLamp.off(),
+                BerlinClockLamp.off(),
+                BerlinClockLamp.off(),
+                BerlinClockLamp.off(),
+                BerlinClockLamp.off(),
+                BerlinClockLamp.off(),
+                BerlinClockLamp.off(),
+                BerlinClockLamp.off(),
+                BerlinClockLamp.off(),
+                BerlinClockLamp.off()
+            )
+        }
         return listOf(
             BerlinClockLamp.yellow(true),
             BerlinClockLamp.off(),
