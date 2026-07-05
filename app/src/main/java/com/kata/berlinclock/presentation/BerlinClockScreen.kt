@@ -69,11 +69,17 @@ fun BerlinClockDisplay(
 
         Spacer(Modifier.height(24.dp))
 
-        FiveHourLampRow(lamps = clockState.fiveHourRow)
+        LampRow(
+            lamps = clockState.fiveHourRow,
+            testTag = "FiveHourLamp"
+        )
 
         Spacer(Modifier.height(16.dp))
 
-        OneHourLampRow(lamps = clockState.oneHourRow)
+        LampRow(
+            lamps = clockState.oneHourRow,
+            testTag = "OneHourLamp"
+        )
     }
 }
 
@@ -97,58 +103,14 @@ private fun SecondLamp(
 }
 
 @Composable
-private fun FiveHourLampRow(
-    lamps: List<BerlinClockLamp>
+private fun LampRow(
+    lamps: List<BerlinClockLamp>,
+    testTag: String
 ) {
 
     Row(
         modifier = Modifier.fillMaxWidth()
-            .testTag("FiveHourLamp"),
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
-    ) {
-
-        lamps.forEachIndexed { index, lamp ->
-
-            val shape = when (index) {
-                0 ->
-                    RoundedCornerShape(
-                        topStart = 22.dp,
-                        bottomStart = 22.dp
-                    )
-
-                lamps.lastIndex ->
-                    RoundedCornerShape(
-                        topEnd = 22.dp,
-                        bottomEnd = 22.dp
-                    )
-
-                else -> RectangleShape
-            }
-            Box(
-                modifier = Modifier.weight(1f)
-                    .height(62.dp)
-                    .clip(shape)
-                    .background(
-                        if (lamp.isOn) Color.Red else Color.White
-                    )
-                    .border(
-                        3.dp,
-                        Color(0xFF555555),
-                        shape
-                    )
-            )
-        }
-    }
-}
-
-@Composable
-private fun OneHourLampRow(
-    lamps: List<BerlinClockLamp>
-) {
-
-    Row(
-        modifier = Modifier.fillMaxWidth()
-            .testTag("OneHourLamp"),
+            .testTag(testTag),
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
 
