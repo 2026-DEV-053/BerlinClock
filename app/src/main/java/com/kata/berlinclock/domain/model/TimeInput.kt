@@ -11,4 +11,13 @@ data class TimeInput(
     val hours: Int,
     val minutes: Int,
     val seconds: Int
-)
+){
+    /**
+     * Converts the time into a 24-hour digital clock format (HH:mm).
+     *
+     * The seconds component is intentionally omitted since it is not required
+     * for display purposes.
+     */
+    fun toDisplayableDigitalTime(): String =
+        "${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}"
+}

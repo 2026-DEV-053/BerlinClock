@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -25,8 +26,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kata.berlinclock.domain.model.BerlinClockLamp
 import com.kata.berlinclock.domain.model.BerlinClockState
@@ -94,6 +98,19 @@ fun BerlinClockDisplay(
             lamps = clockState.oneMinuteRow,
             testTag = "OneMinuteLamp"
         )
+
+        Spacer(Modifier.height(24.dp))
+
+        Text(
+            text = clockState.timeInput.toDisplayableDigitalTime(),
+            modifier = Modifier.testTag("24HourDigitalTime"),
+            fontSize = 72.sp,
+            fontFamily = FontFamily.Monospace,
+            fontWeight = FontWeight.Black,
+            color = Color.Black
+        )
+
+        Spacer(Modifier.height(24.dp))
     }
 }
 

@@ -11,7 +11,8 @@ data class BerlinClockState(
     val fiveHourRow: List<BerlinClockLamp>,
     val oneHourRow: List<BerlinClockLamp>,
     val fiveMinuteRow: List<BerlinClockLamp>,
-    val oneMinuteRow: List<BerlinClockLamp>
+    val oneMinuteRow: List<BerlinClockLamp>,
+    val timeInput: TimeInput
 ) {
     companion object {
 
@@ -24,7 +25,8 @@ data class BerlinClockState(
             fiveHourRow = emptyList(),
             oneHourRow = emptyList(),
             fiveMinuteRow = emptyList(),
-            oneMinuteRow = emptyList()
+            oneMinuteRow = emptyList(),
+            timeInput = TimeInput(0,0,0)
         )
     }
 }

@@ -34,7 +34,8 @@ class ConvertTimeToBerlinClockUseCase @Inject constructor(
                 fiveHourRow = getFiveHourRow(timeInput.hours),
                 oneHourRow = getOneHourRow(timeInput.hours),
                 fiveMinuteRow = getFiveMinuteRow(timeInput.minutes),
-                oneMinuteRow = getOneMinuteRow(timeInput.minutes)
+                oneMinuteRow = getOneMinuteRow(timeInput.minutes),
+                timeInput = timeInput
             )
         }
     }

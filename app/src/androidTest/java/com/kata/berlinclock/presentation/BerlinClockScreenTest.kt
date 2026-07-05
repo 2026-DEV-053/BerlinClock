@@ -7,6 +7,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import com.kata.berlinclock.domain.model.BerlinClockLamp
 import com.kata.berlinclock.domain.model.BerlinClockState
+import com.kata.berlinclock.domain.model.TimeInput
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.every
@@ -33,7 +34,8 @@ class BerlinClockScreenTest {
             fiveHourRow = List(4) { BerlinClockLamp.red(false) },
             oneHourRow = List(4) { BerlinClockLamp.red(false) },
             fiveMinuteRow = List(11) { BerlinClockLamp.off() },
-            oneMinuteRow = List(4) { BerlinClockLamp.off() }
+            oneMinuteRow = List(4) { BerlinClockLamp.off() },
+            timeInput = TimeInput(0,0,0)
         )
 
         val stateFlow = MutableStateFlow(state)
@@ -61,7 +63,8 @@ class BerlinClockScreenTest {
             fiveHourRow = List(4) { BerlinClockLamp.red(false) },
             oneHourRow = List(4) { BerlinClockLamp.red(false) },
             fiveMinuteRow = List(11) { BerlinClockLamp.off() },
-            oneMinuteRow = List(4) { BerlinClockLamp.off() }
+            oneMinuteRow = List(4) { BerlinClockLamp.off() },
+            timeInput = TimeInput(0,0,0)
         )
 
         composeTestRule.setContent {
@@ -84,7 +87,8 @@ class BerlinClockScreenTest {
             fiveHourRow = List(4) { BerlinClockLamp.red(true) },
             oneHourRow = List(4) { BerlinClockLamp.red(false) },
             fiveMinuteRow = List(11) { BerlinClockLamp.off() },
-            oneMinuteRow = List(4) { BerlinClockLamp.off() }
+            oneMinuteRow = List(4) { BerlinClockLamp.off() },
+            timeInput = TimeInput(0,0,0)
         )
 
         composeTestRule.setContent {
@@ -107,7 +111,8 @@ class BerlinClockScreenTest {
             fiveHourRow = List(4) { BerlinClockLamp.red(false) },
             oneHourRow = List(4) { BerlinClockLamp.red(true) },
             fiveMinuteRow = List(11) { BerlinClockLamp.off() },
-            oneMinuteRow = List(4) { BerlinClockLamp.off() }
+            oneMinuteRow = List(4) { BerlinClockLamp.off() },
+            timeInput = TimeInput(0,0,0)
         )
 
         composeTestRule.setContent {
@@ -130,7 +135,8 @@ class BerlinClockScreenTest {
             fiveHourRow = List(4) { BerlinClockLamp.red(false) },
             oneHourRow = List(4) { BerlinClockLamp.red(false) },
             fiveMinuteRow = List(11) { BerlinClockLamp.yellow(true) },
-            oneMinuteRow = List(4) { BerlinClockLamp.off() }
+            oneMinuteRow = List(4) { BerlinClockLamp.off() },
+            timeInput = TimeInput(0,0,0)
         )
 
         composeTestRule.setContent {
@@ -153,7 +159,8 @@ class BerlinClockScreenTest {
             fiveHourRow = List(4) { BerlinClockLamp.red(false) },
             oneHourRow = List(4) { BerlinClockLamp.red(false) },
             fiveMinuteRow = List(11) { BerlinClockLamp.off() },
-            oneMinuteRow = List(4) { BerlinClockLamp.red(true) }
+            oneMinuteRow = List(4) { BerlinClockLamp.red(true) },
+            timeInput = TimeInput(0,0,0)
         )
 
         composeTestRule.setContent {
@@ -165,6 +172,30 @@ class BerlinClockScreenTest {
 
         composeTestRule
             .onNodeWithTag("OneMinuteLamp")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun verify24HourDigitalTimeIsDisplayed() {
+
+        val state = BerlinClockState(
+            secondsLamp = BerlinClockLamp.off(),
+            fiveHourRow = List(4) { BerlinClockLamp.red(false) },
+            oneHourRow = List(4) { BerlinClockLamp.red(false) },
+            fiveMinuteRow = List(11) { BerlinClockLamp.off() },
+            oneMinuteRow = List(4) { BerlinClockLamp.off() },
+            timeInput = TimeInput(16,35,0)
+        )
+
+        composeTestRule.setContent {
+            BerlinClockDisplay(
+                clockState = state,
+                modifier = Modifier
+            )
+        }
+
+        composeTestRule
+            .onNodeWithTag("24HourDigitalTime")
             .assertIsDisplayed()
     }
 }

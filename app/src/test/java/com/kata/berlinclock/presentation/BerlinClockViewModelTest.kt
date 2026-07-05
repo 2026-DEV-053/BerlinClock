@@ -3,6 +3,7 @@ package com.kata.berlinclock.presentation
 import app.cash.turbine.test
 import com.kata.berlinclock.domain.model.BerlinClockLamp
 import com.kata.berlinclock.domain.model.BerlinClockState
+import com.kata.berlinclock.domain.model.TimeInput
 import com.kata.berlinclock.domain.usecase.ConvertTimeToBerlinClockUseCase
 import io.mockk.every
 import io.mockk.mockk
@@ -43,7 +44,8 @@ class BerlinClockViewModelTest {
             fiveHourRow = List(4) { BerlinClockLamp.red(false) },
             oneHourRow = List(4) { BerlinClockLamp.red(false) },
             fiveMinuteRow = List(11) { BerlinClockLamp.off() },
-            oneMinuteRow = List(4) { BerlinClockLamp.off() }
+            oneMinuteRow = List(4) { BerlinClockLamp.off() },
+            timeInput = TimeInput(0,0,0)
         )
 
         every {
