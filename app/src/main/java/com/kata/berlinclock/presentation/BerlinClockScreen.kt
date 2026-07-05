@@ -87,6 +87,13 @@ fun BerlinClockDisplay(
         FiveMinuteLampRow(
             lamps = clockState.fiveMinuteRow
         )
+
+        Spacer(Modifier.height(16.dp))
+
+        LampRow(
+            lamps = clockState.oneMinuteRow,
+            testTag = "OneMinuteLamp"
+        )
     }
 }
 
