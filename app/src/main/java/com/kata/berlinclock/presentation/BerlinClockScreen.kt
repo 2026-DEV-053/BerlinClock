@@ -66,7 +66,8 @@ fun BerlinClockDisplay(
             .fillMaxSize()
             .background(Color.White)
             .padding(horizontal = 16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Spacer(Modifier.height(24.dp))
 
