@@ -1,7 +1,10 @@
 package com.kata.berlinclock.presentation
 
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import com.kata.berlinclock.domain.model.BerlinClockLamp
 import com.kata.berlinclock.domain.model.BerlinClockState
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -48,5 +51,28 @@ class BerlinClockScreenTest {
         verify(exactly = 1) {
             testViewModel.startUpdatingClock()
         }
+    }
+
+    @Test
+    fun verifySecondsLampIsDisplayed() {
+
+        val state = BerlinClockState(
+            secondsLamp = BerlinClockLamp.yellow(true),
+            fiveHourRow = List(4) { BerlinClockLamp.red(false) },
+            oneHourRow = List(4) { BerlinClockLamp.red(false) },
+            fiveMinuteRow = List(11) { BerlinClockLamp.off() },
+            oneMinuteRow = List(4) { BerlinClockLamp.off() }
+        )
+
+        composeTestRule.setContent {
+            BerlinClockDisplay(
+                clockState = state,
+                modifier = Modifier
+            )
+        }
+
+        composeTestRule
+            .onNodeWithTag("SecondsLamp")
+            .assertIsDisplayed()
     }
 }
