@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kata.berlinclock.domain.model.BerlinClockLamp
@@ -122,33 +123,13 @@ private fun LampRow(
 
         lamps.forEachIndexed { index, lamp ->
 
-            val shape = when (index) {
-                0 ->
-                    RoundedCornerShape(
-                        topStart = 22.dp,
-                        bottomStart = 22.dp
-                    )
-
-                lamps.lastIndex ->
-                    RoundedCornerShape(
-                        topEnd = 22.dp,
-                        bottomEnd = 22.dp
-                    )
-
-                else -> RectangleShape
-            }
-            Box(
-                modifier = Modifier.weight(1f)
-                    .height(62.dp)
-                    .clip(shape)
-                    .background(
-                        if (lamp.isOn) Color.Red else Color.White
-                    )
-                    .border(
-                        3.dp,
-                        Color(0xFF555555),
-                        shape
-                    )
+            Lamp(
+                modifier = Modifier.weight(1f),
+                on = lamp.isOn,
+                color = Color.Red,
+                height = 48.dp,
+                first = index == 0,
+                last = index == lamps.lastIndex
             )
         }
     }
@@ -173,34 +154,56 @@ private fun FiveMinuteLampRow(
                 else
                     Color.Yellow
 
-            val shape = when (index) {
-                0 ->
-                    RoundedCornerShape(
-                        topStart = 22.dp,
-                        bottomStart = 22.dp
-                    )
-
-                lamps.lastIndex ->
-                    RoundedCornerShape(
-                        topEnd = 22.dp,
-                        bottomEnd = 22.dp
-                    )
-
-                else -> RectangleShape
-            }
-            Box(
-                modifier = Modifier.weight(1f)
-                    .height(62.dp)
-                    .clip(shape)
-                    .background(
-                        if (lamp.isOn) color else Color.White
-                    )
-                    .border(
-                        3.dp,
-                        Color(0xFF555555),
-                        shape
-                    )
+            Lamp(
+                modifier = Modifier.weight(1f),
+                on = lamp.isOn,
+                color = color,
+                height = 48.dp,
+                first = index == 0,
+                last = index == lamps.lastIndex
             )
         }
     }
+}
+
+@Composable
+private fun Lamp(
+    modifier: Modifier,
+    on: Boolean,
+    color: Color,
+    height: Dp,
+    first: Boolean,
+    last: Boolean
+) {
+
+    val shape = when {
+        first ->
+            RoundedCornerShape(
+                topStart = 22.dp,
+                bottomStart = 22.dp
+            )
+
+        last ->
+            RoundedCornerShape(
+                topEnd = 22.dp,
+                bottomEnd = 22.dp
+            )
+
+        else ->
+            RectangleShape
+    }
+
+    Box(
+        modifier = modifier
+            .height(height)
+            .clip(shape)
+            .background(
+                if (on) color else Color.White
+            )
+            .border(
+                3.dp,
+                Color(0xFF555555),
+                shape
+            )
+    )
 }
