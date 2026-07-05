@@ -121,4 +121,27 @@ class BerlinClockScreenTest {
             .onNodeWithTag("OneHourLamp")
             .assertIsDisplayed()
     }
+
+    @Test
+    fun verifyFiveMinuteLampIsDisplayed() {
+
+        val state = BerlinClockState(
+            secondsLamp = BerlinClockLamp.off(),
+            fiveHourRow = List(4) { BerlinClockLamp.red(false) },
+            oneHourRow = List(4) { BerlinClockLamp.red(false) },
+            fiveMinuteRow = List(11) { BerlinClockLamp.yellow(true) },
+            oneMinuteRow = List(4) { BerlinClockLamp.off() }
+        )
+
+        composeTestRule.setContent {
+            BerlinClockDisplay(
+                clockState = state,
+                modifier = Modifier
+            )
+        }
+
+        composeTestRule
+            .onNodeWithTag("FiveMinuteLamp")
+            .assertIsDisplayed()
+    }
 }

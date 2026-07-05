@@ -80,6 +80,12 @@ fun BerlinClockDisplay(
             lamps = clockState.oneHourRow,
             testTag = "OneHourLamp"
         )
+
+        Spacer(Modifier.height(16.dp))
+
+        FiveMinuteLampRow(
+            lamps = clockState.fiveMinuteRow
+        )
     }
 }
 
@@ -137,6 +143,57 @@ private fun LampRow(
                     .clip(shape)
                     .background(
                         if (lamp.isOn) Color.Red else Color.White
+                    )
+                    .border(
+                        3.dp,
+                        Color(0xFF555555),
+                        shape
+                    )
+            )
+        }
+    }
+}
+
+@Composable
+private fun FiveMinuteLampRow(
+    lamps: List<BerlinClockLamp>
+) {
+
+    Row(
+        modifier = Modifier.fillMaxWidth()
+            .testTag("FiveMinuteLamp"),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+
+        lamps.forEachIndexed { index, lamp ->
+
+            val color =
+                if ((index + 1) % 3 == 0)
+                    Color.Red
+                else
+                    Color.Yellow
+
+            val shape = when (index) {
+                0 ->
+                    RoundedCornerShape(
+                        topStart = 22.dp,
+                        bottomStart = 22.dp
+                    )
+
+                lamps.lastIndex ->
+                    RoundedCornerShape(
+                        topEnd = 22.dp,
+                        bottomEnd = 22.dp
+                    )
+
+                else -> RectangleShape
+            }
+            Box(
+                modifier = Modifier.weight(1f)
+                    .height(62.dp)
+                    .clip(shape)
+                    .background(
+                        if (lamp.isOn) color else Color.White
                     )
                     .border(
                         3.dp,
