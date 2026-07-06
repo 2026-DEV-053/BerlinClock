@@ -40,8 +40,10 @@ import com.kata.berlinclock.domain.model.BerlinClockState
 fun BerlinClockScreen(
     viewModel: BerlinClockViewModel = hiltViewModel()
 ){
+    // Observe the current Berlin Clock state from the ViewModel.
     val clockState = viewModel.clockState.collectAsState()
 
+    // Start updating the clock when this screen enters the composition.
     LaunchedEffect(Unit) {
         viewModel.startUpdatingClock()
     }
@@ -61,6 +63,8 @@ fun BerlinClockDisplay(
     clockState: BerlinClockState,
     modifier: Modifier
 ) {
+    // Display the Berlin Clock using its traditional four lamp rows
+    // followed by the equivalent 24-hour digital time.
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -71,10 +75,12 @@ fun BerlinClockDisplay(
     ) {
         Spacer(Modifier.height(24.dp))
 
+        // Top seconds' indicator.
         SecondLamp(clockState.secondsLamp)
 
         Spacer(Modifier.height(24.dp))
 
+        // Five-hour row (4 lamps).
         LampRow(
             lamps = clockState.fiveHourRow,
             testTag = "FiveHourLamp"
@@ -82,6 +88,7 @@ fun BerlinClockDisplay(
 
         Spacer(Modifier.height(16.dp))
 
+        // One-hour row (4 lamps).
         LampRow(
             lamps = clockState.oneHourRow,
             testTag = "OneHourLamp"
@@ -89,12 +96,14 @@ fun BerlinClockDisplay(
 
         Spacer(Modifier.height(16.dp))
 
+        // Five-minute row (11 lamps with quarter-hour markers).
         FiveMinuteLampRow(
             lamps = clockState.fiveMinuteRow
         )
 
         Spacer(Modifier.height(16.dp))
 
+        // One-minute row (4 lamps).
         LampRow(
             lamps = clockState.oneMinuteRow,
             testTag = "OneMinuteLamp"
@@ -102,6 +111,7 @@ fun BerlinClockDisplay(
 
         Spacer(Modifier.height(24.dp))
 
+        // Digital representation of the same time.
         Text(
             text = clockState.timeInput.toDisplayableDigitalTime(),
             modifier = Modifier.testTag("24HourDigitalTime"),
@@ -119,6 +129,7 @@ fun BerlinClockDisplay(
 private fun SecondLamp(
     lamp: BerlinClockLamp
 ) {
+    // The seconds lamp blinks on even seconds.
     val background = if(!lamp.isOn) Color.White else Color.Yellow
 
     Box(
@@ -139,7 +150,7 @@ private fun LampRow(
     lamps: List<BerlinClockLamp>,
     testTag: String
 ) {
-
+    // Generic row used for hour lamps and one-minute lamps.
     Row(
         modifier = Modifier.fillMaxWidth()
             .testTag(testTag),
@@ -164,7 +175,7 @@ private fun LampRow(
 private fun FiveMinuteLampRow(
     lamps: List<BerlinClockLamp>
 ) {
-
+    // Every third lamp represents a quarter-hour and is displayed in red.
     Row(
         modifier = Modifier.fillMaxWidth()
             .testTag("FiveMinuteLamp"),
@@ -200,7 +211,7 @@ private fun Lamp(
     first: Boolean,
     last: Boolean
 ) {
-
+    // Round only the outer corners to give each row a continuous appearance.
     val shape = when {
         first ->
             RoundedCornerShape(
