@@ -19,7 +19,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,6 +31,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kata.berlinclock.domain.model.BerlinClockLamp
 import com.kata.berlinclock.domain.model.BerlinClockState
 
@@ -41,7 +41,7 @@ fun BerlinClockScreen(
     viewModel: BerlinClockViewModel = hiltViewModel()
 ){
     // Observe the current Berlin Clock state from the ViewModel.
-    val clockState = viewModel.clockState.collectAsState()
+    val clockState = viewModel.clockState.collectAsStateWithLifecycle()
 
     // Start updating the clock when this screen enters the composition.
     LaunchedEffect(Unit) {
