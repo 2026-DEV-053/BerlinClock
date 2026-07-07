@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,6 +35,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kata.berlinclock.domain.model.BerlinClockLamp
 import com.kata.berlinclock.domain.model.BerlinClockState
+import com.kata.berlinclock.domain.model.TimeInput
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -241,5 +243,52 @@ private fun Lamp(
                 Color(0xFF555555),
                 shape
             )
+    )
+}
+
+@Preview(
+    name = "Berlin Clock",
+    showBackground = true,
+    backgroundColor = 0xFFFFFFFF
+)
+@Composable
+private fun BerlinClockDisplayPreview() {
+    BerlinClockDisplay(
+        clockState = BerlinClockState(
+            timeInput = TimeInput(17, 50, 2),
+            secondsLamp = BerlinClockLamp.yellow(true),
+            fiveHourRow = listOf(
+                BerlinClockLamp.red(true),
+                BerlinClockLamp.red(true),
+                BerlinClockLamp.red(true),
+                BerlinClockLamp.off()
+            ),
+            oneHourRow = listOf(
+                BerlinClockLamp.red(true),
+                BerlinClockLamp.red(true),
+                BerlinClockLamp.off(),
+                BerlinClockLamp.off()
+            ),
+            fiveMinuteRow = listOf(
+                BerlinClockLamp.yellow(true),
+                BerlinClockLamp.yellow(true),
+                BerlinClockLamp.red(true),
+                BerlinClockLamp.yellow(true),
+                BerlinClockLamp.yellow(true),
+                BerlinClockLamp.red(true),
+                BerlinClockLamp.yellow(true),
+                BerlinClockLamp.yellow(true),
+                BerlinClockLamp.red(true),
+                BerlinClockLamp.yellow(true),
+                BerlinClockLamp.off()
+            ),
+            oneMinuteRow = listOf(
+                BerlinClockLamp.off(),
+                BerlinClockLamp.off(),
+                BerlinClockLamp.off(),
+                BerlinClockLamp.off()
+            )
+        ),
+        modifier = Modifier
     )
 }
